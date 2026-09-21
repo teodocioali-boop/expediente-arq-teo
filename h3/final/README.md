@@ -1,4 +1,4 @@
-# H3 Final: La Fusión (Observer + Strategy)
+# H3 Final: La Fusión (Observer + Strategy) - Sistema de Gestión de Órdenes de Trabajo
 
 ## ¿Por qué estos dos?
 Mi caso necesita **Strategy** porque las órdenes de trabajo tienen diferentes prioridades y cálculos de ruta según el tipo de servicio. Necesito algoritmos intercambiables.

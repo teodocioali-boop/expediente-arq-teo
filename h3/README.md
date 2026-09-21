@@ -1,4 +1,4 @@
-# H3: Laboratorio de Patrones
+# H3: Laboratorio de Patrones - Sistema de Gestión de Órdenes de Trabajo
 
 Se implementaron las siguientes prácticas:
 - `con-observer`: Notificación automática al Despachador cuando el técnico cambia el estado de una tarea.

@@ -1,4 +1,4 @@
-# H1: Inventario del Caso - App de Campo para Técnicos de Telecom
+# H1: Inventario del Caso - Sistema de Gestión de Órdenes de Trabajo
 
 ## Variante
 Gestión de órdenes de trabajo y soporte técnico en campo.

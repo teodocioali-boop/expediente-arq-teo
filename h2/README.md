@@ -1,4 +1,4 @@
-# H2: SOLID Aplicado
+# H2: SOLID Aplicado - Sistema de Gestión de Órdenes de Trabajo
 
 ## Antes (Violación de SRP y DIP)
 La clase `GestorTareas` se encargaba de: consultar la base de datos, calcular la ruta y enviar notificaciones push. Si cambiaba la forma de notificar, había que modificar toda la clase.
