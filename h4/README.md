@@ -3,20 +3,19 @@
 ## Nivel 1: Diagrama de Contexto
 
 ```mermaid
-C4Context
-    title Diagrama de Contexto - App de Campo para Técnicos
+C4Container
+    title Diagrama de Contenedores - SGT-Telecom
 
-    Person(tecnico, "Técnico de Campo", "Instala y repara servicios en el domicilio del cliente")
-    Person(despachador, "Despachador", "Asigna tareas y monitorea a los técnicos")
-    
-    System(app, "App de Campo", "Gestiona las órdenes de trabajo, rutas y reportes de los técnicos")
-    
-    System_Ext(inventario, "Sistema de Inventario", "Controla el stock de equipos")
-    System_Ext(red, "Sistema de Monitoreo", "Verifica si el servicio del cliente está activo")
-    System_Ext(mapas, "API de Mapas", "Proporciona rutas y ubicaciones")
+    Person(tecnico, "Técnico", "Usuario en campo")
+    Person(despachador, "Despachador", "Usuario en oficina")
 
-    Rel(tecnico, app, "Consulta tareas y reporta avances")
-    Rel(despachador, app, "Asigna y supervisa tareas")
-    Rel(app, inventario, "Consulta stock", "API")
-    Rel(app, red, "Verifica activación", "API")
-    Rel(app, mapas, "Obtiene rutas", "API")
+    Container(app_movil, "App Móvil", "Flutter", "Interfaz para el técnico")
+    Container(panel_web, "Panel Web", "React", "Interfaz para el despachador")
+    Container(backend, "API Backend (Fusión Observer + Strategy)", "Node.js", "Lógica de negocio: cálculo de rutas (Strategy) y notificaciones (Observer)")
+    ContainerDb(db, "Base de Datos", "PostgreSQL", "Órdenes, usuarios y reportes")
+
+    Rel(tecnico, app_movil, "Usa", "HTTPS")
+    Rel(despachador, panel_web, "Usa", "HTTPS")
+    Rel(app_movil, backend, "Consume API", "JSON/HTTPS")
+    Rel(panel_web, backend, "Consume API", "JSON/HTTPS")
+    Rel(backend, db, "Lee y escribe", "SQL")
