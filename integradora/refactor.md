@@ -2,6 +2,7 @@
 
 namespace Integradora.Comedor;
 
+// --- Abstracciones (DIP) ---
 public interface IRepositorioPedidos
 {
     void GuardarPedido(string estudiante, string tipoMenu, int cantidad, decimal total);
@@ -12,6 +13,7 @@ public interface INotificador
     void Enviar(string mensaje);
 }
 
+// --- Clase de alto nivel que ahora depende de abstracciones ---
 public class GestorDePedidos
 {
     private readonly IRepositorioPedidos _repositorio;
@@ -35,7 +37,31 @@ public class GestorDePedidos
         decimal total = precioBase * cantidad;
 
         _repositorio.GuardarPedido(estudiante, tipoMenu, cantidad, total);
-        Console.WriteLine($"VALE: {estudiante} - {cantidad} x {tipoMenu} - TOTAL: {total:0.00} Bs");
-        _notificador.Enviar($"Pedido registrado: {cantidad} x {tipoMenu}");
+        Console.WriteLine("----- VALE DE COMEDOR -----");
+        Console.WriteLine($"{estudiante}: {cantidad} x menú {tipoMenu}");
+        Console.WriteLine($"TOTAL: {total:0.00} Bs");
+        _notificador.Enviar($"Pedido registrado: {cantidad} x {tipoMenu}, {estudiante}");
+    }
+}
+
+// --- Implementaciones concretas que ahora implementan las interfaces ---
+public class BaseDeDatosComedor : IRepositorioPedidos
+{
+    public void GuardarPedido(string estudiante, string menu, int cantidad, decimal total)
+        => Console.WriteLine($"[BD] INSERT INTO pedidos VALUES ('{estudiante}', '{menu}', {cantidad}, {total})");
+}
+
+public class CorreoUniversitario : INotificador
+{
+    public void Enviar(string mensaje) => Console.WriteLine($"[CORREO] {mensaje}");
+}
+
+public static class Demo
+{
+    public static void Correr()
+    {
+        var repo = new BaseDeDatosComedor();
+        var correo = new CorreoUniversitario();
+        new GestorDePedidos(repo, correo).ProcesarPedido("Noelia", "vegetariano", 2);
     }
 }
